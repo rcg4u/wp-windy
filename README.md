@@ -7,7 +7,8 @@ The **WP Windy Map Plugin** allows you to embed a customizable Windy map into yo
 - Embed a Windy map using a simple iframe.
 - Configure the map's latitude and longitude to display specific locations.
 - Choose between Celsius and Fahrenheit for temperature units.
-- Select radar type: Temperature, Rain, Wind, or Clouds.
+
+- Select radar type: Temperature, Rain, Wind, Clouds, Pressure, Waves, Snow Depth, Satellite, Radar, Humidity, Dew Point, Visibility, or Thunderstorms.
 - **NEW:** Use a shortcode to embed the map on any page or post.
 - **NEW:** Improved settings page with geolocation support and shortcode display option.
 
@@ -22,7 +23,8 @@ The **WP Windy Map Plugin** allows you to embed a customizable Windy map into yo
    - **Station Latitude**: Enter the latitude of the location you want to display.
    - **Station Longitude**: Enter the longitude of the location you want to display.
    - **Temperature Units**: Select either Celsius or Fahrenheit.
-   - **Radar Type**: Choose the type of radar to display (Temperature, Rain, Wind, Clouds).
+
+   - **Radar Type**: Choose the type of radar to display (Temperature, Rain, Wind, Clouds, Pressure, Waves, Snow Depth, Satellite, Radar, Humidity, Dew Point, Visibility, Thunderstorms).
    - **Show Shortcode**: Decide whether to display the shortcode on the settings page.
 3. Save your changes.
 

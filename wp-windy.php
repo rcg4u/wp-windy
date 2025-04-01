@@ -2,8 +2,8 @@
 /*
 Plugin Name: WP Windy Map
 Description: A plugin to display a Windy map with configurable settings.
-Version: 1.0
-Author: Your Name
+Version: 1.1
+Author: NarcolepticNerd
 */
 
 // Ensure this file is being run within the WordPress environment
@@ -132,6 +132,15 @@ function wp_windy_radar_type_render() {
             <option value="rain"' . selected($value, 'rain', false) . '>Rain</option>
             <option value="wind"' . selected($value, 'wind', false) . '>Wind</option>
             <option value="clouds"' . selected($value, 'clouds', false) . '>Clouds</option>
+            <option value="pressure"' . selected($value, 'pressure', false) . '>Pressure</option>
+            <option value="waves"' . selected($value, 'waves', false) . '>Waves</option>
+            <option value="snowdepth"' . selected($value, 'snowdepth', false) . '>Snow Depth</option>
+            <option value="satellite"' . selected($value, 'satellite', false) . '>Satellite</option>
+            <option value="radar"' . selected($value, 'radar', false) . '>Radar</option>
+            <option value="humidity"' . selected($value, 'humidity', false) . '>Humidity</option>
+            <option value="dewpoint"' . selected($value, 'dewpoint', false) . '>Dew Point</option>
+            <option value="visibility"' . selected($value, 'visibility', false) . '>Visibility</option>
+            <option value="thunder"' . selected($value, 'thunder', false) . '>Thunderstorms</option>
           </select>';
 }
 

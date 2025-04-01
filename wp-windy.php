@@ -41,6 +41,7 @@ function wp_windy_settings_init() {
     register_setting('wp_windy_settings', 'wp_windy_station_lat');
     register_setting('wp_windy_settings', 'wp_windy_station_lon');
     register_setting('wp_windy_settings', 'wp_windy_temp_units');
+    register_setting('wp_windy_settings', 'wp_windy_show_shortcode');
 
     add_settings_section(
         'wp_windy_settings_section',
@@ -72,6 +73,14 @@ function wp_windy_settings_init() {
         'wp_windy_settings',
         'wp_windy_settings_section'
     );
+
+    add_settings_field(
+        'wp_windy_show_shortcode',
+        __('Show Shortcode', 'wp_windy'),
+        'wp_windy_show_shortcode_render',
+        'wp_windy_settings',
+        'wp_windy_settings_section'
+    );
 }
 add_action('admin_init', 'wp_windy_settings_init');
 
@@ -96,6 +105,15 @@ function wp_windy_temp_units_render() {
           </select>';
 }
 
+// Render show shortcode field
+function wp_windy_show_shortcode_render() {
+    $value = get_option('wp_windy_show_shortcode', 'yes');
+    echo '<select name="wp_windy_show_shortcode">
+            <option value="yes"' . selected($value, 'yes', false) . '>Yes</option>
+            <option value="no"' . selected($value, 'no', false) . '>No</option>
+          </select>';
+}
+
 // Display the settings page
 function wp_windy_options_page() {
     ?>
@@ -108,6 +126,16 @@ function wp_windy_options_page() {
         ?>
         <button type="button" onclick="getCurrentLocation()">Use Current Location</button>
     </form>
+    <?php
+    // Check if the shortcode should be displayed
+    if (get_option('wp_windy_show_shortcode', 'yes') === 'yes') {
+        ?>
+        <h3><?php _e('Shortcode', 'wp_windy'); ?></h3>
+        <p><?php _e('Use the following shortcode to display the Windy map:', 'wp_windy'); ?></p>
+        <code>[windy_map]</code>
+        <?php
+    }
+    ?>
     <script>
         function getCurrentLocation() {
             if (navigator.geolocation) {

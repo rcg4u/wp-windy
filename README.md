@@ -20,19 +20,25 @@ The **WP Windy Map Plugin** allows you to embed a customizable Windy map into yo
    - **Station Latitude**: Enter the latitude of the location you want to display.
    - **Station Longitude**: Enter the longitude of the location you want to display.
    - **Temperature Units**: Select either Celsius or Fahrenheit.
-
 3. Save your changes.
 
 ## Usage
 ### Shortcode
-Use the `[wp_windy_map]` shortcode to embed the Windy map on any page or post.
+Use the `[windy_map]` shortcode to embed the Windy map on any page or post. Example:
+```plaintext
+[windy_map]
+```
 
 ### Settings Page
-Once configured, the Windy map will automatically display on your site using the specified settings.
+The settings page allows you to:
+- Set the latitude and longitude for the map's location.
+- Choose the temperature units (Celsius or Fahrenheit).
+- Use the "Use Current Location" button to auto-fill your coordinates based on your browser's geolocation.
 
 ## Changelog
 ### Version 1.1
 - Added shortcode support for embedding the map on pages or posts.
+- Improved settings page with geolocation support.
 
 ### Version 1.0
 - Initial release with configurable latitude, longitude, and temperature units.

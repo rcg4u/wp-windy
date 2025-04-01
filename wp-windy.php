@@ -22,6 +22,14 @@ function wp_windy_display_map() {
     echo '<iframe src="https://embed.windy.com/embed2.html?lat=' . esc_attr($stationLat) . '&lon=' . esc_attr($stationLon) . '&zoom=5&level=surface&overlay=temp&menu=&message=true&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0' . esc_attr($displayTempUnits) . '" style="border:none;width:98%;height:400px;margin:0 auto"></iframe>';
 }
 
+// Shortcode function to display the map
+function wp_windy_shortcode() {
+    ob_start();
+    wp_windy_display_map();
+    return ob_get_clean();
+}
+add_shortcode('windy_map', 'wp_windy_shortcode');
+
 // Add a menu item for the settings page under Tools
 function wp_windy_add_admin_menu() {
     add_management_page('WP Windy Settings', 'WP Windy', 'manage_options', 'wp_windy', 'wp_windy_options_page');

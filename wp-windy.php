@@ -70,13 +70,13 @@ add_action('admin_init', 'wp_windy_settings_init');
 // Render latitude field
 function wp_windy_station_lat_render() {
     $value = get_option('wp_windy_station_lat', '0');
-    echo '<input type="text" name="wp_windy_station_lat" value="' . esc_attr($value) . '">';
+    echo '<input type="text" id="wp_windy_station_lat" name="wp_windy_station_lat" value="' . esc_attr($value) . '">';
 }
 
 // Render longitude field
 function wp_windy_station_lon_render() {
     $value = get_option('wp_windy_station_lon', '0');
-    echo '<input type="text" name="wp_windy_station_lon" value="' . esc_attr($value) . '">';
+    echo '<input type="text" id="wp_windy_station_lon" name="wp_windy_station_lon" value="' . esc_attr($value) . '">';
 }
 
 // Render temperature units field
@@ -98,6 +98,19 @@ function wp_windy_options_page() {
         do_settings_sections('wp_windy_settings');
         submit_button();
         ?>
+        <button type="button" onclick="getCurrentLocation()">Use Current Location</button>
     </form>
+    <script>
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.getElementById('wp_windy_station_lat').value = position.coords.latitude;
+                    document.getElementById('wp_windy_station_lon').value = position.coords.longitude;
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        }
+    </script>
     <?php
 }

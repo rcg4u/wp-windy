@@ -1,14 +1,15 @@
 # WP Windy Map Plugin
 
 ## Description
-The **WP Windy Map Plugin** allows you to embed a customizable Windy map into your WordPress site. You can configure the map's latitude, longitude, and temperature units through the WordPress admin panel.
+The **WP Windy Map Plugin** allows you to embed a customizable Windy map into your WordPress site. You can configure the map's latitude, longitude, temperature units, and radar type through the WordPress admin panel.
 
 ## Features
 - Embed a Windy map using a simple iframe.
 - Configure the map's latitude and longitude to display specific locations.
 - Choose between Celsius and Fahrenheit for temperature units.
+- Select radar type: Temperature, Rain, Wind, or Clouds.
 - **NEW:** Use a shortcode to embed the map on any page or post.
-- **NEW:** Improved settings page with geolocation support.
+- **NEW:** Improved settings page with geolocation support and shortcode display option.
 
 ## Installation
 1. Download the plugin files.
@@ -21,6 +22,8 @@ The **WP Windy Map Plugin** allows you to embed a customizable Windy map into yo
    - **Station Latitude**: Enter the latitude of the location you want to display.
    - **Station Longitude**: Enter the longitude of the location you want to display.
    - **Temperature Units**: Select either Celsius or Fahrenheit.
+   - **Radar Type**: Choose the type of radar to display (Temperature, Rain, Wind, Clouds).
+   - **Show Shortcode**: Decide whether to display the shortcode on the settings page.
 3. Save your changes.
 
 ## Usage
@@ -34,12 +37,15 @@ Use the `[windy_map]` shortcode to embed the Windy map on any page or post. Exam
 The settings page allows you to:
 - Set the latitude and longitude for the map's location.
 - Choose the temperature units (Celsius or Fahrenheit).
+- Select the radar type to display.
 - Use the "Use Current Location" button to auto-fill your coordinates based on your browser's geolocation.
 
 ## Changelog
 ### Version 1.1
 - Added shortcode support for embedding the map on pages or posts.
 - Improved settings page with geolocation support.
+- Added radar type configuration.
+- Added option to show or hide the shortcode on the settings page.
 
 ### Version 1.0
 - Initial release with configurable latitude, longitude, and temperature units.

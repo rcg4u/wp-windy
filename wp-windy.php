@@ -3,7 +3,7 @@
 Plugin Name: WP Windy Map
 Description: A plugin to display a Windy map with configurable settings.
 Version: 1.0
-Author: NarcolepticNerd
+Author: Your Name
 */
 
 // Ensure this file is being run within the WordPress environment
@@ -17,9 +17,10 @@ function wp_windy_display_map() {
     $stationLat = get_option('wp_windy_station_lat', '0');
     $stationLon = get_option('wp_windy_station_lon', '0');
     $displayTempUnits = get_option('wp_windy_temp_units', 'C');
+    $radarType = get_option('wp_windy_radar_type', 'temp');
 
     // Output the iframe
-    echo '<iframe src="https://embed.windy.com/embed2.html?lat=' . esc_attr($stationLat) . '&lon=' . esc_attr($stationLon) . '&zoom=5&level=surface&overlay=temp&menu=&message=true&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0' . esc_attr($displayTempUnits) . '" style="border:none;width:98%;height:400px;margin:0 auto"></iframe>';
+    echo '<iframe src="https://embed.windy.com/embed2.html?lat=' . esc_attr($stationLat) . '&lon=' . esc_attr($stationLon) . '&zoom=5&level=surface&overlay=' . esc_attr($radarType) . '&menu=&message=true&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0' . esc_attr($displayTempUnits) . '" style="border:none;width:98%;height:400px;margin:0 auto"></iframe>';
 }
 
 // Shortcode function to display the map
@@ -42,6 +43,7 @@ function wp_windy_settings_init() {
     register_setting('wp_windy_settings', 'wp_windy_station_lon');
     register_setting('wp_windy_settings', 'wp_windy_temp_units');
     register_setting('wp_windy_settings', 'wp_windy_show_shortcode');
+    register_setting('wp_windy_settings', 'wp_windy_radar_type');
 
     add_settings_section(
         'wp_windy_settings_section',
@@ -81,6 +83,14 @@ function wp_windy_settings_init() {
         'wp_windy_settings',
         'wp_windy_settings_section'
     );
+
+    add_settings_field(
+        'wp_windy_radar_type',
+        __('Radar Type', 'wp_windy'),
+        'wp_windy_radar_type_render',
+        'wp_windy_settings',
+        'wp_windy_settings_section'
+    );
 }
 add_action('admin_init', 'wp_windy_settings_init');
 
@@ -111,6 +121,17 @@ function wp_windy_show_shortcode_render() {
     echo '<select name="wp_windy_show_shortcode">
             <option value="yes"' . selected($value, 'yes', false) . '>Yes</option>
             <option value="no"' . selected($value, 'no', false) . '>No</option>
+          </select>';
+}
+
+// Render radar type field
+function wp_windy_radar_type_render() {
+    $value = get_option('wp_windy_radar_type', 'temp');
+    echo '<select name="wp_windy_radar_type">
+            <option value="temp"' . selected($value, 'temp', false) . '>Temperature</option>
+            <option value="rain"' . selected($value, 'rain', false) . '>Rain</option>
+            <option value="wind"' . selected($value, 'wind', false) . '>Wind</option>
+            <option value="clouds"' . selected($value, 'clouds', false) . '>Clouds</option>
           </select>';
 }
 

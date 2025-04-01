@@ -7,6 +7,7 @@ The **WP Windy Map Plugin** allows you to embed a customizable Windy map into yo
 - Embed a Windy map using a simple iframe.
 - Configure the map's latitude and longitude to display specific locations.
 - Choose between Celsius and Fahrenheit for temperature units.
+- **NEW:** Use a shortcode to embed the map on any page or post.
 
 ## Installation
 1. Download the plugin files.
@@ -23,8 +24,15 @@ The **WP Windy Map Plugin** allows you to embed a customizable Windy map into yo
 3. Save your changes.
 
 ## Usage
+### Shortcode
+Use the `[wp_windy_map]` shortcode to embed the Windy map on any page or post.
+
+### Settings Page
 Once configured, the Windy map will automatically display on your site using the specified settings.
 
 ## Changelog
+### Version 1.1
+- Added shortcode support for embedding the map on pages or posts.
+
 ### Version 1.0
 - Initial release with configurable latitude, longitude, and temperature units.

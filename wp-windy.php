@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Windy Map
 Description: A plugin to display a Windy map with configurable settings.
-Version: 1.1
+Version: 1.3
 Author: NarcolepticNerd
 */
 
@@ -157,6 +157,10 @@ function wp_windy_options_page() {
         <button type="button" onclick="getCurrentLocation()">Use Current Location</button>
     </form>
     <?php
+    // Display the radar map on the settings page
+    echo '<h3>' . __('Radar Preview', 'wp_windy') . '</h3>';
+    wp_windy_display_map();
+
     // Check if the shortcode should be displayed
     if (get_option('wp_windy_show_shortcode', 'yes') === 'yes') {
         ?>

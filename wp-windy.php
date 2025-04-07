@@ -14,13 +14,18 @@ if (!defined('ABSPATH')) {
 // Function to display the Windy map
 function wp_windy_display_map() {
     // Retrieve settings
-    $stationLat = get_option('wp_windy_station_lat', '0');
-    $stationLon = get_option('wp_windy_station_lon', '0');
-    $displayTempUnits = get_option('wp_windy_temp_units', 'C');
-    $radarType = get_option('wp_windy_radar_type', 'temp');
+
+
+
+
+    $stationLat = esc_attr(get_option('wp_windy_station_lat', '0'));
+    $stationLon = esc_attr(get_option('wp_windy_station_lon', '0'));
+    $displayTempUnits = esc_attr(get_option('wp_windy_temp_units', 'C'));
+    $radarType = esc_attr(get_option('wp_windy_radar_type', 'temp'));
 
     // Output the iframe
-    echo '<iframe src="https://embed.windy.com/embed2.html?lat=' . esc_attr($stationLat) . '&lon=' . esc_attr($stationLon) . '&zoom=5&level=surface&overlay=' . esc_attr($radarType) . '&menu=&message=true&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0' . esc_attr($displayTempUnits) . '" style="border:none;width:98%;height:400px;margin:0 auto"></iframe>';
+
+    echo '<iframe src="https://embed.windy.com/embed2.html?lat=' . $stationLat . '&lon=' . $stationLon . '&zoom=5&level=surface&overlay=' . $radarType . '&menu=&message=true&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0' . $displayTempUnits . '" style="border:none;width:98%;height:400px;margin:0 auto"></iframe>';
 }
 
 // Shortcode function to display the map
@@ -39,11 +44,26 @@ add_action('admin_menu', 'wp_windy_add_admin_menu');
 
 // Register settings
 function wp_windy_settings_init() {
-    register_setting('wp_windy_settings', 'wp_windy_station_lat');
-    register_setting('wp_windy_settings', 'wp_windy_station_lon');
-    register_setting('wp_windy_settings', 'wp_windy_temp_units');
-    register_setting('wp_windy_settings', 'wp_windy_show_shortcode');
-    register_setting('wp_windy_settings', 'wp_windy_radar_type');
+
+
+
+
+
+    register_setting('wp_windy_settings', 'wp_windy_station_lat', [
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    register_setting('wp_windy_settings', 'wp_windy_station_lon', [
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    register_setting('wp_windy_settings', 'wp_windy_temp_units', [
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    register_setting('wp_windy_settings', 'wp_windy_show_shortcode', [
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    register_setting('wp_windy_settings', 'wp_windy_radar_type', [
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
 
     add_settings_section(
         'wp_windy_settings_section',
@@ -96,19 +116,24 @@ add_action('admin_init', 'wp_windy_settings_init');
 
 // Render latitude field
 function wp_windy_station_lat_render() {
-    $value = get_option('wp_windy_station_lat', '0');
-    echo '<input type="text" id="wp_windy_station_lat" name="wp_windy_station_lat" value="' . esc_attr($value) . '">';
+
+
+    $value = esc_attr(get_option('wp_windy_station_lat', '0'));
+    echo '<input type="text" id="wp_windy_station_lat" name="wp_windy_station_lat" value="' . $value . '">';
 }
 
 // Render longitude field
 function wp_windy_station_lon_render() {
-    $value = get_option('wp_windy_station_lon', '0');
-    echo '<input type="text" id="wp_windy_station_lon" name="wp_windy_station_lon" value="' . esc_attr($value) . '">';
+
+
+    $value = esc_attr(get_option('wp_windy_station_lon', '0'));
+    echo '<input type="text" id="wp_windy_station_lon" name="wp_windy_station_lon" value="' . $value . '">';
 }
 
 // Render temperature units field
 function wp_windy_temp_units_render() {
-    $value = get_option('wp_windy_temp_units', 'C');
+
+    $value = esc_attr(get_option('wp_windy_temp_units', 'C'));
     echo '<select name="wp_windy_temp_units">
             <option value="C"' . selected($value, 'C', false) . '>Celsius</option>
             <option value="F"' . selected($value, 'F', false) . '>Fahrenheit</option>
@@ -117,7 +142,8 @@ function wp_windy_temp_units_render() {
 
 // Render show shortcode field
 function wp_windy_show_shortcode_render() {
-    $value = get_option('wp_windy_show_shortcode', 'yes');
+
+    $value = esc_attr(get_option('wp_windy_show_shortcode', 'yes'));
     echo '<select name="wp_windy_show_shortcode">
             <option value="yes"' . selected($value, 'yes', false) . '>Yes</option>
             <option value="no"' . selected($value, 'no', false) . '>No</option>
@@ -126,7 +152,8 @@ function wp_windy_show_shortcode_render() {
 
 // Render radar type field
 function wp_windy_radar_type_render() {
-    $value = get_option('wp_windy_radar_type', 'temp');
+
+    $value = esc_attr(get_option('wp_windy_radar_type', 'temp'));
     echo '<select name="wp_windy_radar_type">
             <option value="temp"' . selected($value, 'temp', false) . '>Temperature</option>
             <option value="rain"' . selected($value, 'rain', false) . '>Rain</option>
@@ -148,6 +175,7 @@ function wp_windy_radar_type_render() {
 function wp_windy_options_page() {
     ?>
     <form action="options.php" method="post">
+        <?php wp_nonce_field('wp_windy_settings_save', 'wp_windy_nonce'); ?>
         <h2><?php _e('WP Windy Settings', 'wp_windy'); ?></h2>
         <?php
         settings_fields('wp_windy_settings');
@@ -176,6 +204,8 @@ function wp_windy_options_page() {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     document.getElementById('wp_windy_station_lat').value = position.coords.latitude;
                     document.getElementById('wp_windy_station_lon').value = position.coords.longitude;
+                }, function(error) {
+                    alert('Error occurred. Error code: ' + error.code);
                 });
             } else {
                 alert('Geolocation is not supported by this browser.');
